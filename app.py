@@ -45,7 +45,7 @@ def load_model_and_data():
     # Load original data to get encoding mappings
     # Try multiple paths for flexibility (local dev vs deployment)
     csv_paths = [
-        r"C:\Users\roark\Downloads\attacks_encoded_ml.csv",  # Local path
+        r"C:\Users\Downloads\attacks_encoded_ml.csv",  # Local path
         "attacks_encoded_ml.csv",  # Same directory
         "data/attacks_encoded_ml.csv"  # Data folder
     ]
