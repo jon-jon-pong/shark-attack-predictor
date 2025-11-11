@@ -33,7 +33,7 @@ class MLPClassifier(nn.Module):
 def load_model_and_data():
     """Load the trained model and get feature information from training data"""
     # Load model checkpoint
-    checkpoint = torch.load("pytorch_mlp_model.pt", map_location="cpu")
+    checkpoint = torch.load("pytorch_mlp_model.pt", map_location="cpu", weights_only=False)
     n_features = checkpoint["n_features"]
     feature_columns = checkpoint["feature_columns"]
     
@@ -43,7 +43,24 @@ def load_model_and_data():
     model.eval()
     
     # Load original data to get encoding mappings
-    df = pd.read_csv(r"C:\Users\roark\Downloads\attacks_encoded_ml.csv")
+    # Try multiple paths for flexibility (local dev vs deployment)
+    csv_paths = [
+        r"C:\Users\roark\Downloads\attacks_encoded_ml.csv",  # Local path
+        "attacks_encoded_ml.csv",  # Same directory
+        "data/attacks_encoded_ml.csv"  # Data folder
+    ]
+    
+    df = None
+    for path in csv_paths:
+        try:
+            df = pd.read_csv(path)
+            break
+        except FileNotFoundError:
+            continue
+    
+    if df is None:
+        raise FileNotFoundError("Could not find attacks_encoded_ml.csv. Please ensure the data file is available.")
+    
     df.columns = [c.strip().replace(" ", "_").replace(".", "_").lower() for c in df.columns]
     
     # Get unique values for dropdowns
