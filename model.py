@@ -4,8 +4,8 @@ from torch import nn
 from torch.utils.data import TensorDataset, DataLoader, random_split
 from sklearn.model_selection import train_test_split      
 # 1) Load data
-X = np.load(r'C:\Users\roark\Downloads\attacks_outputs\X_onehot.npy').astype(np.float32)
-y = np.load(r'C:\Users\roark\Downloads\attacks_outputs\y.npy').astype(np.int64)
+X = np.load(r'C:\Users\Downloads\attacks_outputs\X_onehot.npy').astype(np.float32)
+y = np.load(r'C:\Users\Downloads\attacks_outputs\y.npy').astype(np.int64)
 
 X = torch.from_numpy(X)
 y = torch.from_numpy(y)
